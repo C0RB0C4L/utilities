@@ -1,0 +1,30 @@
+.app-disp-none {
+  display: none;
+}
+.app-vis-hidden {
+  visibility: hidden;
+}
+.app-vis-vis {
+  visibility: visible;
+}
+.app-disp-block {
+  display: block;
+}
+.app-disp-inline {
+  display: inline;
+}
+.app-disp-inlblc {
+  display: inline-block;
+}
+.app-pos-relative {
+  position: relative;
+}
+.app-pos-absol {
+  position: absolute;
+}
+.app-overlay-zone {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
