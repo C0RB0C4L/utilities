@@ -154,5 +154,4 @@ function toggleRemainingCheckboxesInactive(divId, max) {
       }
     });
   }
-
 }
