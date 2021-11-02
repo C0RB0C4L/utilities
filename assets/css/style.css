@@ -1,0 +1,192 @@
+.tooltip {
+  height: 30px;
+  width: 30px;
+  border: red solid 1px;
+  display: inline-block;
+}
+
+.tooltip-container {
+  visibility: hidden;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  margin-left: 5px;
+  position: absolute;
+  z-index: 1;
+}
+
+.tooltip-container::before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+
+.visible {
+  visibility: visible;
+}
+
+
+
+
+/********************************
+CUSTOM SWITCH BUTTON
+********************************/
+.app-switch {
+	position: relative;
+	display: inline-block;
+	width: 35px;
+	height: 20px;
+}
+.app-switch input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.app-slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	border-radius: 35px;
+	border: 1px gray solid;
+	background-color: crimson;
+}
+input:checked + .app-slider { 
+  background-color: green;
+}
+.app-slider:before {
+	position: absolute;
+	content: "";
+	height: 10px;
+	width: 10px;
+	left: 3px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	border-radius: 50%;
+}
+input:checked + .app-slider:before {
+	-webkit-transform: translateX(18px);
+	-ms-transform: translateX(18px);
+	transform: translateX(18px);
+}
+input:focus + .app-slider {
+	box-shadow: 0 0 1px black;
+}
+
+
+/********************************
+CUSTOM SWITCH BUTTON ALT
+********************************/
+.app-switch-alt {
+	position: relative;
+	display: inline-block;
+	width: 35px;
+	height: 10px;
+}
+.app-switch-alt input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.app-slider-alt {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	/* border-radius: 35px; */
+	border: 1px gray solid;
+	background-color: crimson;
+}
+input:checked + .app-slider-alt { 
+  background-color: green;
+}
+.app-slider-alt:before {
+	position: absolute;
+	content: "";
+	height: 20px;
+	width: 20px;
+	left: -5px;
+	bottom: -5px;
+	background-color: whitesmoke;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	border-radius: 50%;
+}
+input:checked + .app-slider-alt:before {
+	-webkit-transform: translateX(24px);
+	-ms-transform: translateX(24px);
+	transform: translateX(24px);
+}
+input:focus + .app-slider-alt {
+	box-shadow: 0 0 1px black;
+}
+
+
+
+/********************************
+CUSTOM SWITCH BUTTON TER
+********************************/
+.app-switch-ter {
+	position: relative;
+	display: inline-block;
+	width: 35px;
+	height: 18px;
+}
+.app-switch-ter input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.app-slider-ter {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	/* border-radius: 35px; */
+	border: 1px gray solid;
+	background-color: crimson;
+}
+input:checked + .app-slider-ter { 
+  background-color: green;
+}
+.app-slider-ter:before {
+	position: absolute;
+	content: "";
+	height: 12px;
+	width: 12px;
+	left: 2px;
+	bottom: 2px;
+	background-color: whitesmoke;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	/* border-radius: 50%; */
+}
+input:checked + .app-slider-ter:before {
+	-webkit-transform: translateX(17px);
+	-ms-transform: translateX(17px);
+	transform: translateX(17px);
+}
+input:focus + .app-slider-ter {
+	box-shadow: 0 0 1px black;
+}
