@@ -1,14 +1,26 @@
 //==================================================
 // TESTS
 //==================================================
+let test = setRed;
 
+document.getElementById('check3').addEventListener("click", test);
+function setRed() {
+  let elem = document.getElementById('check3');
+  elem.style.display = 'none';
+}
+
+
+
+//or 
+let test2 = function() {
+  let elem = document.getElementById('check3');
+  elem.style.display = 'none';
+}
+// and call test2 instead of test
 
 //==================================================
 // EXPORTS
 //==================================================
-
-
-
 
 
 //============================================================
@@ -29,7 +41,7 @@ function uncheckAllCheckboxes() {
 }
 /**
  * @description Function that search for all the other checkboxes that the desired one in the DOM and sets them to unchecked.
- * @param inputId the checkbox you don't want unchecked (string)
+ * @param {string} inputId the checkbox you don't want unchecked (string)
  * @returns void
  * @author c0rb0c4l
  */
@@ -43,7 +55,7 @@ function uncheckAllCheckboxesExcept(inputId) {
 }
 /**
  * @description Function that completely removes the options from target select tag (except the placeholder).
- * @param selectId The select tag ID (string)
+ * @param {string} selectId The select tag ID (string)
  * @returns void
  * @author c0rb0c4l
  */
@@ -58,7 +70,7 @@ function deleteOptionsfromTargetSelect(selectId) {
 }
 /**
  * @description Function that hides the options from target select tag (except the placeholder).
- * @param selectId The select tag ID (string)
+ * @param {string} selectId The select tag ID (string)
  * @returns void
  * @author c0rb0c4l
  */
@@ -67,13 +79,13 @@ function hideOptionsfromTargetSelect(selectId) {
   if (targetSelect != null) {
     for (let i = targetSelect.options.length; i > 1; i--) {
       if (targetSelect.options[i - 1].value != "")
-        targetSelect.options[i - 1].classList.add('app-disp-none');
+        targetSelect.options[i - 1].style.display = 'none';
     }
   }
 }
 /**
  * @description Function that restores the hidden options from target select tag.
- * @param selectId The select tag ID (string)
+ * @param {string} selectId The select tag ID (string)
  * @returns void
  * @author c0rb0c4l
  */
@@ -81,56 +93,61 @@ function revealOptionsfromTargetSelect(selectId) {
   let targetSelect = document.getElementById(selectId.toString());
   if (targetSelect != null) {
     for (let i = targetSelect.options.length; i > 1; i--) {
-      targetSelect.options[i - 1].classList.remove('app-disp-none');
+      targetSelect.options[i - 1].style.display = 'block';
     }
   }
 }
 /**
  * @description Creates an overlay effet on the zone wrapped around a \<div> with ID as parameter.
- * A CSS class 'app-overlay-zone' with the adequate properties needs to be created.
- * If the target div doesn't have a relative position, either create a css class or style it manually
  * Use with removeOverlay();
- * @param divId The \<div id=" ">
+ * @param {string} divId The \<div id=" ">
+ * @param {string} overlayColor The color css property (i.e. "black", "purple"... "white" by default)
+ * @param  {string|number} overlayOpacity The css opacity property value ("0.6" by default);
  * @returns void
  * @author c0rb0c4l
  */
-function createOverlay(divId) {
+function createOverlay(divId, overlayColor = "white", overlayOpacity = '0.6') {
   let targetDiv = document.getElementById(divId.toString());
-  /* */
-  targetDiv.classList.add('app-pos-relative');
-  const overlayZone = document.createElement('div');
-  const overlayZoneId = 'js-' + divId.toString() + '-overlay-zone';
-  overlayZone.setAttribute('class', 'app-overlay-zone');
-  overlayZone.setAttribute('id', overlayZoneId);
-  targetDiv.insertAdjacentElement('afterbegin', overlayZone);
+  targetDiv.style.position = 'relative';
+  const overlayDiv = document.createElement('div');
+  const overlayId = 'js-' + divId.toString() + '-overlay-zone';
+  overlayDiv.style.width = '100%';
+  overlayDiv.style.height = '100%';
+  overlayDiv.style.position = 'absolute';
+  overlayDiv.style.opacity = overlayOpacity.toString();
+  overlayDiv.style.backgroundColor = overlayColor.toString();
+  overlayDiv.setAttribute('id', overlayId);
+  targetDiv.insertAdjacentElement('afterbegin', overlayDiv);
 }
 /**
  * @description Removes the previously created overlay on the zone. 
  * Use with createOverlay();.
- * @param divId The \<div id=" ">
+ * @param {string} divId The \<div id=" ">
  * @returns void
  * @author c0rb0c4l
  */
 function removeOverlay(divId) {
-  const overlayZoneId = 'js-' + divId.toString() + 'overlay-zone';
-  document.getElementById(overlayZoneId).remove();
+  const overlayId = 'js-' + divId.toString() + 'overlay-zone';
+  document.getElementById(overlayId).remove();
 }
 /**
  * @description returns a number between the min and max values, both included
- * @param min included; the lowest desired value (Int)
- * @param max included; this highest desired value (Int)
+ * @param {number} min included; the lowest desired value (Int)
+ * @param {number} max included; this highest desired value (Int)
  * @returns value between min and max
  */
 function getRandomNumberBetween(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 /**
- * @description sets to inactive all the remaining unchecked inputs from a checkbox group when a certain amount of them are checked
- * @param divId The \<div id=" ">
- * @param max included; this highest desired amount of checked checkboxes (Int)
+ * @description will set to "inactive" all the remaining unchecked inputs from a desired group.
+ * It adds an event listener to all the checkbox in the targeted element, count how many are checked each time
+ * one is checked and will disable all the remaining checkboxes that are unchecked when a certain amount is reached.
+ * @param {string} divId The \<div id=" ">
+ * @param {string|number} max included; this highest desired amount of checked checkboxes (Int)
  * @returns value between min and max
  */
-function toggleRemainingCheckboxesInactive(divId, max) {
+function enableToggleRemainingCheckboxesInactive(divId, max) {
   const inputGroup = document.getElementById(divId);
   const inputs = inputGroup.querySelectorAll("input[type='checkbox']");
   let count = 0;
@@ -139,7 +156,7 @@ function toggleRemainingCheckboxesInactive(divId, max) {
       if (e.target.checked === true) {
         count++;
       } else {
-        count--
+        count--;
       }
       if(count >= max) {
         for(const child of inputs) {
@@ -155,3 +172,20 @@ function toggleRemainingCheckboxesInactive(divId, max) {
     });
   }
 }
+
+
+
+/**
+ * timer pattern / delay function
+ * 
+ * let timer = null;
+ * let delay = 500;
+ * 
+ *    *on event* {
+ *  clearTimeout(timer);
+ *  timer = setTimeout(timedfunction(), delay);
+ * }
+ * 
+ * this way, each time the event is trigerred, the function is cancelled / delayed
+ * 
+ */
