@@ -1,26 +1,31 @@
 //==================================================
 // TESTS
 //==================================================
-let test = setRed;
+/* let test = setRed;
 
-document.getElementById('check3').addEventListener("click", test);
 function setRed() {
   let elem = document.getElementById('check3');
   elem.style.display = 'none';
 }
 
+document.getElementById('check3').addEventListener("click", test);
+
 
 
 //or 
-let test2 = function() {
-  let elem = document.getElementById('check3');
+let test2 = function () {
+  let elem = document.getElementById('check2');
   elem.style.display = 'none';
 }
+document.getElementById('check2').addEventListener("click", test2); */
 // and call test2 instead of test
 
 //==================================================
 // EXPORTS
 //==================================================
+
+outlineIfFieldsAreDifferent("text1", "text2");
+
 
 
 //============================================================
@@ -135,6 +140,7 @@ function removeOverlay(divId) {
  * @param {number} min included; the lowest desired value (Int)
  * @param {number} max included; this highest desired value (Int)
  * @returns value between min and max
+ * @author c0rb0c4l
  */
 function getRandomNumberBetween(min, max) {
   return Math.round(Math.random() * (max - min) + min);
@@ -144,48 +150,84 @@ function getRandomNumberBetween(min, max) {
  * It adds an event listener to all the checkbox in the targeted element, count how many are checked each time
  * one is checked and will disable all the remaining checkboxes that are unchecked when a certain amount is reached.
  * @param {string} divId The \<div id=" ">
- * @param {string|number} max included; this highest desired amount of checked checkboxes (Int)
+ * @param {string|number} max included; this highest desired amount of checked checkboxes
  * @returns value between min and max
+ * @author c0rb0c4l
  */
 function enableToggleRemainingCheckboxesInactive(divId, max) {
   const inputGroup = document.getElementById(divId);
   const inputs = inputGroup.querySelectorAll("input[type='checkbox']");
   let count = 0;
   for (const child of inputs) {
-    child.addEventListener("click", function(e) {
+    child.addEventListener("click", function (e) {
       if (e.target.checked === true) {
         count++;
       } else {
         count--;
       }
-      if(count >= max) {
-        for(const child of inputs) {
-          if(child.checked === false) {
+      if (count >= max) {
+        for (const child of inputs) {
+          if (child.checked === false) {
             child.disabled = true;
           }
         }
       } else {
-        for(const child of inputs) {
-            child.disabled = false;
+        for (const child of inputs) {
+          child.disabled = false;
         }
       }
     });
   }
 }
+/**
+ * @description will outline desired inputs fields if their content are strictly different
+ * @param {string} firstInputId
+ * @param {string} secondInputId
+ * @returns void
+ * @author c0rb0c4l
+ */
+function outlineIfFieldsAreDifferent(firstInputId, secondInputId) {
+  const firstInput = document.getElementById(firstInputId);
+  const secondInput = document.getElementById(secondInputId);
+  secondInput.addEventListener("keyup", function () {
+    if (secondInput.value != '' && firstInput.value != secondInput.value) {
+      secondInput.style.boxShadow = "0 0 0 0.2rem rgba(255, 0, 0, 0.5)";
+    } else if (firstInput.value === secondInput.value) {
+      secondInput.removeAttribute('style');
+    }
+  });
+}
+/**
+ * @description will outline desired inputs fields if their content are strictly different
+ * @param {string} elementId the 
+ * @param {string} eventNature
+ * @param {function} callback function to callback
+ * @param {number} delay the time after which the function will be called
+ * @returns void
+ * @author c0rb0c4l
+ */
+function callbackAfterDelayOnEvent(elementId, eventNature, callback, delay) {
+  elementId.addEventListener(eventNature, function () {
+    let timedCallback = null;
+    clearTimeout(timedCallback);
+    timedCallback = setTimeout(callback, delay);
+  });
+}
+
 
 
 
 /**
  * timer pattern / delay function
- * 
+ *
  * let timer = null;
  * let delay = 500;
- * 
+ *
  *    *on event* {
  *  clearTimeout(timer);
  *  timer = setTimeout(timedfunction(), delay);
  * }
- * 
+ *
  * this way, each time the event is trigerred, the function is cancelled / delayed
- * 
+ *
  */
