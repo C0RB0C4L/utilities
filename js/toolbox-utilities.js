@@ -1,29 +1,12 @@
 //==================================================
 // TESTS
 //==================================================
-/* let test = setRed;
-
-function setRed() {
-  let elem = document.getElementById('check3');
-  elem.style.display = 'none';
-}
-
-document.getElementById('check3').addEventListener("click", test);
 
 
-
-//or 
-let test2 = function () {
-  let elem = document.getElementById('check2');
-  elem.style.display = 'none';
-}
-document.getElementById('check2').addEventListener("click", test2); */
-// and call test2 instead of test
 
 //==================================================
 // EXPORTS
 //==================================================
-
 outlineIfFieldsAreDifferent("text1", "text2");
 
 
@@ -46,7 +29,7 @@ function uncheckAllCheckboxes() {
 }
 /**
  * @description Function that search for all the other checkboxes that the desired one in the DOM and sets them to unchecked.
- * @param {string} inputId the checkbox you don't want unchecked (string)
+ * @param {string} inputId The checkbox you don't want unchecked (string)
  * @returns void
  * @author c0rb0c4l
  */
@@ -136,22 +119,22 @@ function removeOverlay(divId) {
   document.getElementById(overlayId).remove();
 }
 /**
- * @description returns a number between the min and max values, both included
- * @param {number} min included; the lowest desired value (Int)
- * @param {number} max included; this highest desired value (Int)
- * @returns value between min and max
+ * @description Returns a number between the min and max values, both included
+ * @param {number} min Included; The lowest desired value (Int)
+ * @param {number} max Included; The highest desired value (Int)
+ * @returns Value between min and max
  * @author c0rb0c4l
  */
 function getRandomNumberBetween(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 /**
- * @description will set to "inactive" all the remaining unchecked inputs from a desired group.
+ * @description Will set to "inactive" all the remaining unchecked inputs from a desired group.
  * It adds an event listener to all the checkbox in the targeted element, count how many are checked each time
  * one is checked and will disable all the remaining checkboxes that are unchecked when a certain amount is reached.
  * @param {string} divId The \<div id=" ">
- * @param {string|number} max included; this highest desired amount of checked checkboxes
- * @returns value between min and max
+ * @param {string|number} max Included; The highest desired amount of checked checkboxes
+ * @returns Value between min and max
  * @author c0rb0c4l
  */
 function enableToggleRemainingCheckboxesInactive(divId, max) {
@@ -180,9 +163,9 @@ function enableToggleRemainingCheckboxesInactive(divId, max) {
   }
 }
 /**
- * @description will outline desired inputs fields if their content are strictly different
- * @param {string} firstInputId
- * @param {string} secondInputId
+ * @description Will outline two desired inputs fields if their content are strictly different
+ * @param {string} firstInputId The first input 
+ * @param {string} secondInputId The second input 
  * @returns void
  * @author c0rb0c4l
  */
@@ -198,11 +181,12 @@ function outlineIfFieldsAreDifferent(firstInputId, secondInputId) {
   });
 }
 /**
- * @description will outline desired inputs fields if their content are strictly different
- * @param {string} elementId the 
- * @param {string} eventNature
- * @param {function} callback function to callback
- * @param {number} delay the time after which the function will be called
+ * @description Will callback a function after a certain delay when a specified event is triggered.
+ * The timed callback will be reinitialised each time the event is triggered.
+ * @param {string} elementId The element on which the event listener will be attached to.
+ * @param {string} eventNature The event nature (click, keyup...)
+ * @param {function} callback The function to callback
+ * @param {number} delay The time after which the function will be called
  * @returns void
  * @author c0rb0c4l
  */
@@ -217,17 +201,42 @@ function callbackAfterDelayOnEvent(elementId, eventNature, callback, delay) {
 
 
 
-/**
- * timer pattern / delay function
- *
- * let timer = null;
- * let delay = 500;
- *
- *    *on event* {
- *  clearTimeout(timer);
- *  timer = setTimeout(timedfunction(), delay);
- * }
- *
- * this way, each time the event is trigerred, the function is cancelled / delayed
- *
- */
+
+/*
+ timer pattern / delay function
+
+  let timer = null;
+  let delay = 500;
+  *on event* {
+    clearTimeout(timer);
+    timer = setTimeout(timedfunction(), delay);
+ }
+*/
+
+
+
+/*
+stocker fonction dans une variable (surtout si celle-ci est paramétrée)
+et appeler la fonction par le nom de la variable
+
+
+
+let test = setRed;
+function setRed() {
+  let elem = document.getElementById('check3');
+  elem.style.display = 'none';
+}
+document.getElementById('check3').addEventListener("click", test);
+*/
+
+
+//or
+
+
+/*
+let test2 = function () {
+  let elem = document.getElementById('check2');
+  elem.style.display = 'none';
+}
+document.getElementById('check2').addEventListener("click", test2);
+*/
