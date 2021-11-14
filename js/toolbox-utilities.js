@@ -7,7 +7,7 @@
 //==================================================
 // EXPORTS
 //==================================================
-outlineIfFieldsAreDifferent("text1", "text2");
+enableOutlineIfFieldsAreDifferent("text1", "text2");
 
 
 
@@ -120,8 +120,8 @@ function removeOverlay(divId) {
 }
 /**
  * @description Returns a number between the min and max values, both included
- * @param {number} min Included; The lowest desired value (Int)
- * @param {number} max Included; The highest desired value (Int)
+ * @param {number} min Included; The lowest desired value
+ * @param {number} max Included; The highest desired value
  * @returns Value between min and max
  * @author c0rb0c4l
  */
@@ -169,7 +169,7 @@ function enableToggleRemainingCheckboxesInactive(divId, max) {
  * @returns void
  * @author c0rb0c4l
  */
-function outlineIfFieldsAreDifferent(firstInputId, secondInputId) {
+function enableOutlineIfFieldsAreDifferent(firstInputId, secondInputId) {
   const firstInput = document.getElementById(firstInputId);
   const secondInput = document.getElementById(secondInputId);
   secondInput.addEventListener("keyup", function () {
@@ -190,8 +190,9 @@ function outlineIfFieldsAreDifferent(firstInputId, secondInputId) {
  * @returns void
  * @author c0rb0c4l
  */
-function callbackAfterDelayOnEvent(elementId, eventNature, callback, delay) {
-  elementId.addEventListener(eventNature, function () {
+function enableCallbackAfterDelayOnEvent(elementId, eventNature, callback, delay) {
+  let element = document.getElementById(elementId)
+  element.addEventListener(eventNature, function () {
     let timedCallback = null;
     clearTimeout(timedCallback);
     timedCallback = setTimeout(callback, delay);

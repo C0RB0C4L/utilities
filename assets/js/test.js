@@ -28,7 +28,6 @@ function closeTooltipsOnDOMClick() {
   })
 }
 
-
 function closeEachTooltip() {
   let tooltips = $('.tooltip-container');
   tooltips.each(function() {
