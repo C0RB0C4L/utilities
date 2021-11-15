@@ -5,63 +5,60 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="css/toolbox-utilities.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/position-visibility.css">
+  <link rel="stylesheet" type="text/css" href="assets/css/custom-elements.css">
   <title>Document</title>
 </head>
 
 <body>
 
-  <div id="js-group" style="width: 33%;">
+  <div id="js-group" style="width: 33%; background-color: darkgrey;">
 
     <label for="check1">checkbox 1</label>
-    <input type="checkbox" name="check1" id="check1"><br>
+    <input type="checkbox" name="check1" id="check1">
+    <span class="app-tooltip" style="height: 30px; width: 30px; border: red solid 1px; display: inline-block;"></span>
+    <span class="app-tooltip-container">phrase de test</span>
+    <br>
     <label for="check2">checkbox 2</label>
     <input type="checkbox" name="check2" id="check2"><br>
     <label for="check3">checkbox 3</label>
-    <input type="checkbox" name="check3" id="check3"><br>
+    <input type="checkbox" name="check3" id="check3">
+    <span class="app-tooltip" style="height: 30px; width: 30px; border: red solid 1px; display: inline-block;"></span>
+    <span class="app-tooltip-container">phrase de test<a>ouiiiii</a></span><br>
     <div>
       <input id="check4" type="checkbox">
       <input id="intrus2" type="text">
 
     </div>
+    <br><br><br>
 
-  </div>
+    <div style="margin-left: 50px; padding-bottom: 50px;">
+      <label class="app-switch-3">
+        <input type="checkbox">
+        <span class="app-slider-3"></span>
+      </label>
+    </div>
 
-  <div id="js-group2" style="width: 33%;">
+    <div style="margin-left: 50px; padding-bottom: 50px;">
+      <label class="app-switch-1">
+        <input type="checkbox">
+        <span class="app-slider-1"></span>
+      </label>
+    </div>
 
-    <label for="check1">checkbox 1</label>
-    <input type="checkbox" name="check1" id="check1"><br>
-    <label for="check2">checkbox 2</label>
-    <input type="checkbox" name="check2" id="check2"><br>
-    <label for="check3">checkbox 3</label>
-    <input type="checkbox" name="check3" id="check3"><br>
-    <div>
-      <input id="check4" type="checkbox">
-      <input id="intrus2" type="text">
-
+    <div style="margin-left: 50px; padding-bottom: 50px;">
+      <label class="app-switch-2">
+        <input type="checkbox">
+        <span class="app-slider-2"></span>
+      </label>
     </div>
 
   </div>
 
 
 
-  <input id="intrus3" type="checkbox">
 
-
-  <select>
-    <option>
-      oui
-    </option>
-    <option>
-      non
-    </option>
-      </select><br>
-
-      <input type="text" id="text1"> <br>
-    <input type="text" id="text2"> <br>
-
-
-  <script type="text/javascript" src="js/toolbox-utilities.js"></script>
+  <script type="text/javascript" src="assets/js/toolbox-utilities.js"></script>
 
 </body>
 

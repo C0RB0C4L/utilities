@@ -2,12 +2,12 @@
 // TESTS
 //==================================================
 
-
+enableTooltipOnClick('app-tooltip');
 
 //==================================================
 // EXPORTS
 //==================================================
-enableOutlineIfFieldsAreDifferent("text1", "text2");
+
 
 
 
@@ -15,35 +15,18 @@ enableOutlineIfFieldsAreDifferent("text1", "text2");
 // FUNCTIONS
 //============================================================
 /**
- * @description Function that searches for all the checkboxes in the DOM and sets them to unchecked.
- * @returns void
+ * @description Returns a number between the min and max values, both included
+ * @param {number} min Included; The lowest desired value
+ * @param {number} max Included; The highest desired value
+ * @returns Value between min and max
  * @author c0rb0c4l
  */
-function uncheckAllCheckboxes() {
-  let inputs = document.getElementsByTagName('input');
-  for (const input of inputs) {
-    if (input.type == 'checkbox') {
-      input.checked = false;
-    }
-  }
-}
-/**
- * @description Function that search for all the other checkboxes that the desired one in the DOM and sets them to unchecked.
- * @param {string} inputId The checkbox you don't want unchecked (string)
- * @returns void
- * @author c0rb0c4l
- */
-function uncheckAllCheckboxesExcept(inputId) {
-  let inputs = document.getElementsByTagName('input');
-  for (const input of inputs) {
-    if (input.id != inputId.toString() && input.type == 'checkbox') {
-      input.checked = false;
-    }
-  }
+ function getRandomNumberBetween(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
 }
 /**
  * @description Function that completely removes the options from target select tag (except the placeholder).
- * @param {string} selectId The select tag ID (string)
+ * @param {string} selectId The select tag ID
  * @returns void
  * @author c0rb0c4l
  */
@@ -58,7 +41,7 @@ function deleteOptionsfromTargetSelect(selectId) {
 }
 /**
  * @description Function that hides the options from target select tag (except the placeholder).
- * @param {string} selectId The select tag ID (string)
+ * @param {string} selectId The select tag ID
  * @returns void
  * @author c0rb0c4l
  */
@@ -73,7 +56,7 @@ function hideOptionsfromTargetSelect(selectId) {
 }
 /**
  * @description Function that restores the hidden options from target select tag.
- * @param {string} selectId The select tag ID (string)
+ * @param {string} selectId The select tag ID
  * @returns void
  * @author c0rb0c4l
  */
@@ -86,7 +69,7 @@ function revealOptionsfromTargetSelect(selectId) {
   }
 }
 /**
- * @description Creates an overlay effet on the zone wrapped around a \<div> with ID as parameter.
+ * @description Creates an overlay effect on the zone wrapped around a \<div>.
  * Use with removeOverlay();
  * @param {string} divId The \<div id=" ">
  * @param {string} overlayColor The color css property (i.e. "black", "purple"... "white" by default)
@@ -115,18 +98,37 @@ function createOverlay(divId, overlayColor = "white", overlayOpacity = '0.6') {
  * @author c0rb0c4l
  */
 function removeOverlay(divId) {
-  const overlayId = 'js-' + divId.toString() + 'overlay-zone';
+  const overlayId = 'js-' + divId.toString() + '-overlay-zone';
   document.getElementById(overlayId).remove();
 }
 /**
- * @description Returns a number between the min and max values, both included
- * @param {number} min Included; The lowest desired value
- * @param {number} max Included; The highest desired value
- * @returns Value between min and max
+ * @description Function that searches for all the checkboxes in the DOM and sets them to unchecked.
+ * You need to create an event listener after which this function will be fired
+ * @returns void
  * @author c0rb0c4l
  */
-function getRandomNumberBetween(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
+ function uncheckAllCheckboxes() {
+  let inputs = document.getElementsByTagName('input');
+  for (const input of inputs) {
+    if (input.type == 'checkbox') {
+      input.checked = false;
+    }
+  }
+}
+/**
+ * @description Function that search for all the other checkboxes that the desired one in the DOM and sets them to unchecked.
+ * You need to create an event listener after which this function will be fired
+ * @param {string} inputId The checkbox you don't want unchecked (string)
+ * @returns void
+ * @author c0rb0c4l
+ */
+function uncheckAllCheckboxesExcept(inputId) {
+  let inputs = document.getElementsByTagName('input');
+  for (const input of inputs) {
+    if (input.id != inputId.toString() && input.type == 'checkbox') {
+      input.checked = false;
+    }
+  }
 }
 /**
  * @description Will set to "inactive" all the remaining unchecked inputs from a desired group.
@@ -134,7 +136,7 @@ function getRandomNumberBetween(min, max) {
  * one is checked and will disable all the remaining checkboxes that are unchecked when a certain amount is reached.
  * @param {string} divId The \<div id=" ">
  * @param {string|number} max Included; The highest desired amount of checked checkboxes
- * @returns Value between min and max
+ * @returns void
  * @author c0rb0c4l
  */
 function enableToggleRemainingCheckboxesInactive(divId, max) {
@@ -164,8 +166,8 @@ function enableToggleRemainingCheckboxesInactive(divId, max) {
 }
 /**
  * @description Will outline two desired inputs fields if their content are strictly different
- * @param {string} firstInputId The first input 
- * @param {string} secondInputId The second input 
+ * @param {string} firstInputId The first input id
+ * @param {string} secondInputId The second input id
  * @returns void
  * @author c0rb0c4l
  */
@@ -181,7 +183,7 @@ function enableOutlineIfFieldsAreDifferent(firstInputId, secondInputId) {
   });
 }
 /**
- * @description Will callback a function after a certain delay when a specified event is triggered.
+ * @description Will callback a function after a certain delay when a specified event is triggered on a specific element.
  * The timed callback will be reinitialised each time the event is triggered.
  * @param {string} elementId The element on which the event listener will be attached to.
  * @param {string} eventNature The event nature (click, keyup...)
@@ -192,14 +194,45 @@ function enableOutlineIfFieldsAreDifferent(firstInputId, secondInputId) {
  */
 function enableCallbackAfterDelayOnEvent(elementId, eventNature, callback, delay) {
   let element = document.getElementById(elementId)
+  let timedCallback = null;
   element.addEventListener(eventNature, function () {
-    let timedCallback = null;
     clearTimeout(timedCallback);
     timedCallback = setTimeout(callback, delay);
   });
 }
-
-
+/**
+ * @description Will display or hide a tooltip box when a zone is clicked.
+ * It has to be used with a custom class name to trigger the event and the tooltip style must be applied to this class name with the '-container' suffix.
+ * @param {string} className the className that will allow an element with it to trigger the display of the tooltip box.
+ * @returns void
+ */
+function enableTooltipOnClick(className) {
+  const tooltipElements = document.getElementsByClassName(className);
+  let targetSibling;
+  for (const element of tooltipElements) {
+    element.addEventListener('click', function (e) {
+      targetSibling = e.target.nextElementSibling;
+      if (targetSibling.style.visibility != "visible") {
+        closeAllTooltips();
+        targetSibling.style.visibility = "visible";
+      } else if (targetSibling.style.visibility === "visible") {
+        targetSibling.style.visibility = "";
+        closeAllTooltips();
+      }
+    });
+  }
+  document.addEventListener('click', function(e) {
+    if(!(e.target.classList.contains(className)) && !(e.target.classList.contains(className+'-container')) && !(e.target.parentElement.classList.contains(className+'-container'))) {
+      closeAllTooltips();
+    }
+  });
+  function closeAllTooltips() {
+    const tooltipContainers = document.getElementsByClassName(className+'-container');
+    for(const container of tooltipContainers) {
+      container.style.visibility = "";
+    }
+  }
+}
 
 
 
