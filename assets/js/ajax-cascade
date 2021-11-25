@@ -1,0 +1,33 @@
+jQuery(function () {
+
+	let array = [];
+	let counter = 0;
+
+	getFactureNames();
+
+	if(array.length > 0) {
+		setTimeout(downloadFacture, 500);
+	}
+
+	function getFactureNames() {
+		$('td[data-attribute="name"]').each(function () {
+			array.push($(this).text().trim());
+		})
+		console.log(array);
+	}
+
+
+	function downloadFacture() {
+			
+		$.getJSON("telecharge_facture_curl="+array[counter], function (json) {
+				test = json
+				counter++;
+			}).done(function () {
+				console.log(test);
+				if(counter < array.length) {
+					downloadFacture();
+				}
+			})		
+	}
+
+});
