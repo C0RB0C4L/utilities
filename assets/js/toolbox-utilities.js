@@ -118,7 +118,7 @@ function removeOverlay(divId) {
 /**
  * @description Function that search for all the other checkboxes that the desired one in the DOM and sets them to unchecked.
  * You need to create an event listener after which this function will be fired
- * @param {string} inputId The checkbox you don't want unchecked (string)
+ * @param {string} inputId The checkbox you don't want unchecked
  * @returns void
  * @author c0rb0c4l
  */
