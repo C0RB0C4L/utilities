@@ -30,12 +30,26 @@ enableTooltipOnClick('app-tooltip');
  * @returns void
  * @author c0rb0c4l
  */
-function deleteOptionsfromTargetSelect(selectId) {
+function deleteOptionsFromTargetSelectId(selectId) {
   let targetSelect = document.getElementById(selectId.toString());
   if (targetSelect != null) {
     while (targetSelect.lastChild) {
       if (targetSelect.lastChild.value != "")
         targetSelect.lastChild.remove();
+    }
+  }
+}
+/**
+ * @description Function that completely removes the options from target select element (except for the placeholder).
+ * @param {HTMLElement} element The select HTML element
+ * @returns void
+ * @author c0rb0c4l
+ */
+ function deleteOptionsFromTargetSelectElement(element) {
+  if (element != null) {
+    while (element.lastChild) {
+      if (element.lastChild.value != "")
+        element.lastChild.remove();
     }
   }
 }
@@ -77,7 +91,7 @@ function revealOptionsfromTargetSelect(selectId) {
  * @returns void
  * @author c0rb0c4l
  */
-function createOverlay(divId, overlayColor = "white", overlayOpacity = '0.6') {
+function createOverlayOnId(divId, overlayColor = "white", overlayOpacity = '0.6') {
   let targetDiv = document.getElementById(divId.toString());
   targetDiv.style.position = 'relative';
   const overlayDiv = document.createElement('div');
@@ -97,9 +111,45 @@ function createOverlay(divId, overlayColor = "white", overlayOpacity = '0.6') {
  * @returns void
  * @author c0rb0c4l
  */
-function removeOverlay(divId) {
+function removeOverlayFromId(divId) {
   const overlayId = 'js-' + divId.toString() + '-overlay-zone';
-  document.getElementById(overlayId).remove();
+  if(document.getElementById(overlayId) != "undefined" && document.getElementById(overlayId) != null) {
+    document.getElementById(overlayId).remove();
+  }
+}
+/**
+ * @description Creates an overlay effect on the zone wrapped around an element.
+ * Use with removeOverlay();
+ * @param {HTMLElement} element The HTML element on which you want the overlay to be applied on
+ * @param {string} overlayColor The color css property (i.e. "black", "purple"... "white" by default)
+ * @param  {string|number} overlayOpacity The css opacity property value ("0.6" by default);
+ * @returns void
+ * @author c0rb0c4l
+ */
+ function createOverlayOnElement(element, overlayColor = "white", overlayOpacity = '0.6') {
+  element.style.position = 'relative';
+  const overlayDiv = document.createElement('div');
+  const overlayId = 'js-' + element.id + '-overlay-zone';
+  overlayDiv.style.width = '100%';
+  overlayDiv.style.height = '100%';
+  overlayDiv.style.position = 'absolute';
+  overlayDiv.style.opacity = overlayOpacity.toString();
+  overlayDiv.style.backgroundColor = overlayColor.toString();
+  overlayDiv.setAttribute('id', overlayId);
+  element.insertAdjacentElement('afterbegin', overlayDiv);
+}
+/**
+ * @description Removes the previously created overlay on the zone. 
+ * Use with createOverlay();.
+ * @param {HTMLElement} element The HTML element on which you want the overlay to be removed from
+ * @returns void
+ * @author c0rb0c4l
+ */
+function removeOverlayFromElement(element) {
+  const overlayId = 'js-' + element.id + '-overlay-zone';
+  if(document.getElementById(overlayId) != "undefined" && document.getElementById(overlayId) != null) {
+    document.getElementById(overlayId).remove();
+  }
 }
 /**
  * @description Function that searches for all the checkboxes in the DOM and sets them to unchecked.
@@ -252,8 +302,9 @@ function enableTooltipOnClick(className) {
 /*
 stocker fonction dans une variable (surtout si celle-ci est paramétrée)
 et appeler la fonction par le nom de la variable
+deux façons de faire
 
-
+// this
 
 let test = setRed;
 function setRed() {
@@ -261,13 +312,11 @@ function setRed() {
   elem.style.display = 'none';
 }
 document.getElementById('check3').addEventListener("click", test);
-*/
 
 
-//or
 
+//or this
 
-/*
 let test2 = function () {
   let elem = document.getElementById('check2');
   elem.style.display = 'none';
