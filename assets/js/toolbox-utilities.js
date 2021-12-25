@@ -7,7 +7,23 @@ enableTooltipOnClick('app-tooltip');
 //==================================================
 // EXPORTS
 //==================================================
-
+export default {
+  getRandomNumberBetween,
+  deleteOptionsFromTargetSelectId,
+  deleteOptionsFromTargetSelectElement,
+  hideOptionsfromTargetSelect,
+  revealOptionsfromTargetSelect,
+  createOverlayOnId,
+  removeOverlayFromId,
+  createOverlayOnElement,
+  removeOverlayFromElement,
+  uncheckAllCheckboxes,
+  uncheckAllCheckboxesExcept,
+  enableToggleRemainingCheckboxesInactive,
+  enableOutlineIfFieldsAreDifferent,
+  enableCallbackAfterDelayOnEvent,
+  enableTooltipOnClick
+}
 
 
 
@@ -21,7 +37,7 @@ enableTooltipOnClick('app-tooltip');
  * @returns Value between min and max
  * @author c0rb0c4l
  */
- function getRandomNumberBetween(min, max) {
+function getRandomNumberBetween(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 /**
@@ -47,7 +63,7 @@ function deleteOptionsFromTargetSelectId(selectId) {
  */
  function deleteOptionsFromTargetSelectElement(element) {
   if (element != null) {
-    while (element.lastChild) {
+    while (element.lastChild && element.lastChild.value != "") {
       if (element.lastChild.value != "")
         element.lastChild.remove();
     }
@@ -113,7 +129,7 @@ function createOverlayOnId(divId, overlayColor = "white", overlayOpacity = '0.6'
  */
 function removeOverlayFromId(divId) {
   const overlayId = 'js-' + divId.toString() + '-overlay-zone';
-  if(document.getElementById(overlayId) != "undefined" && document.getElementById(overlayId) != null) {
+  if (document.getElementById(overlayId) != "undefined" && document.getElementById(overlayId) != null) {
     document.getElementById(overlayId).remove();
   }
 }
@@ -126,13 +142,14 @@ function removeOverlayFromId(divId) {
  * @returns void
  * @author c0rb0c4l
  */
- function createOverlayOnElement(element, overlayColor = "white", overlayOpacity = '0.6') {
+function createOverlayOnElement(element, overlayColor = "white", overlayOpacity = '0.6') {
   element.style.position = 'relative';
   const overlayDiv = document.createElement('div');
   const overlayId = 'js-' + element.id + '-overlay-zone';
   overlayDiv.style.width = '100%';
   overlayDiv.style.height = '100%';
   overlayDiv.style.position = 'absolute';
+  overlayDiv.style.zIndex = '100';
   overlayDiv.style.opacity = overlayOpacity.toString();
   overlayDiv.style.backgroundColor = overlayColor.toString();
   overlayDiv.setAttribute('id', overlayId);
@@ -147,7 +164,7 @@ function removeOverlayFromId(divId) {
  */
 function removeOverlayFromElement(element) {
   const overlayId = 'js-' + element.id + '-overlay-zone';
-  if(document.getElementById(overlayId) != "undefined" && document.getElementById(overlayId) != null) {
+  if (document.getElementById(overlayId) != "undefined" && document.getElementById(overlayId) != null) {
     document.getElementById(overlayId).remove();
   }
 }
@@ -157,7 +174,7 @@ function removeOverlayFromElement(element) {
  * @returns void
  * @author c0rb0c4l
  */
- function uncheckAllCheckboxes() {
+function uncheckAllCheckboxes() {
   let inputs = document.getElementsByTagName('input');
   for (const input of inputs) {
     if (input.type == 'checkbox') {
@@ -261,25 +278,29 @@ function enableTooltipOnClick(className) {
   let targetSibling;
   for (const element of tooltipElements) {
     element.addEventListener('click', function (e) {
-      targetSibling = e.target.nextElementSibling;
+      let target = e.target;
+      while (!target.classList.contains(className)) {
+        target = target.parentNode;
+      }
+      targetSibling = target.nextElementSibling;
       if (targetSibling.style.visibility != "visible") {
         closeAllTooltips();
-        targetSibling.style.visibility = "visible";
-      } else if (targetSibling.style.visibility === "visible") {
-        targetSibling.style.visibility = "";
+        targetSibling.style.setProperty("visibility", "visible");
+      } else if (targetSibling.style.visibility == "visible") {
         closeAllTooltips();
+        targetSibling.style.setProperty("visibility", "");
       }
     });
   }
-  document.addEventListener('click', function(e) {
-    if(!(e.target.classList.contains(className)) && !(e.target.classList.contains(className+'-container')) && !(e.target.parentElement.classList.contains(className+'-container'))) {
+  document.addEventListener('click', function (e) {
+    if (!(e.target.classList.contains(className)) && !(e.target.classList.contains(className + '-container')) && !(e.target.parentElement.classList.contains(className + '-container')) && !(e.target.parentElement.classList.contains(className))) {
       closeAllTooltips();
     }
   });
   function closeAllTooltips() {
-    const tooltipContainers = document.getElementsByClassName(className+'-container');
-    for(const container of tooltipContainers) {
-      container.style.visibility = "";
+    const tooltipContainers = document.getElementsByClassName(className + '-container');
+    for (const container of tooltipContainers) {
+      targetSibling.style.setProperty("visibility", "");
     }
   }
 }
