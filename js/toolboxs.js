@@ -344,3 +344,13 @@ let test2 = function () {
 }
 document.getElementById('check2').addEventListener("click", test2);
 */
+
+/* 
+
+$('.totoo').click()
+
+
+$(document).click('.toto', jfdskljdflsd)
+
+
+foreach((array)$array as $row)   */

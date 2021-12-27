@@ -1,0 +1,32 @@
+/* ----------- 0 - 575px ----------- */
+@media screen and (max-width: 575px){
+}
+
+/* ----------- 576 - 767px ----------- */
+@media screen 
+  and (min-width: 576px) 
+  and (max-width: 767px){
+}
+
+/* ----------- 768px - 991px ----------- */
+@media screen 
+  and (min-width: 768px)
+  and (max-width: 991px){
+}
+
+/* ----------- 992px - 1199px ----------- */
+@media screen 
+  and (min-width: 992px) 
+  and (max-width: 1199px){
+}
+
+/* ----------- 1200px - 1399px ----------- */
+@media screen 
+  and (min-width: 1200px) 
+  and (max-width: 1399px){
+}
+
+/* ----------- 1400px + ----------- */
+@media screen 
+  and (min-width: 1400px){
+}
