@@ -1,16 +1,10 @@
 //==================================================
-// TESTS
-//==================================================
-
-enableTooltipOnClick('app-tooltip');
-
-//==================================================
 // EXPORTS
 //==================================================
 export default {
   getRandomNumberBetween,
-  deleteOptionsFromTargetSelectId,
   deleteOptionsFromTargetSelectElement,
+  deleteOptionsFromTargetSelect,
   hideOptionsfromTargetSelect,
   revealOptionsfromTargetSelect,
   createOverlayOnId,
@@ -31,37 +25,22 @@ export default {
 // FUNCTIONS
 //============================================================
 /**
- * @description Returns a number between the min and max values, both included
- * @param {number} min Included; The lowest desired value
- * @param {number} max Included; The highest desired value
- * @returns Value between min and max
+ * @description Returns a number between the min and max values, both included.
+ * @param {number} min Included; The lowest desired value.
+ * @param {number} max Included; The highest desired value.
+ * @returns {number} Value between min and max.
  * @author c0rb0c4l
  */
 function getRandomNumberBetween(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
 /**
- * @description Function that completely removes the options from target select tag (except the placeholder).
- * @param {string} selectId The select tag ID
+ * @description Function that completely removes the options from target \<select> element (except for the placeholder).
+ * @param {HTMLElement} element The \<select> element.
  * @returns void
  * @author c0rb0c4l
  */
-function deleteOptionsFromTargetSelectId(selectId) {
-  let targetSelect = document.getElementById(selectId.toString());
-  if (targetSelect != null) {
-    while (targetSelect.lastChild) {
-      if (targetSelect.lastChild.value != "")
-        targetSelect.lastChild.remove();
-    }
-  }
-}
-/**
- * @description Function that completely removes the options from target select element (except for the placeholder).
- * @param {HTMLElement} element The select HTML element
- * @returns void
- * @author c0rb0c4l
- */
- function deleteOptionsFromTargetSelectElement(element) {
+function deleteOptionsFromTargetSelectElement(element) {
   if (element != null) {
     while (element.lastChild && element.lastChild.value != "") {
       if (element.lastChild.value != "")
@@ -70,13 +49,28 @@ function deleteOptionsFromTargetSelectId(selectId) {
   }
 }
 /**
- * @description Function that hides the options from target select tag (except the placeholder).
- * @param {string} selectId The select tag ID
+ * @description Function that completely removes the options from target \<select> element (except the placeholder).
+ * @param {string} elementId The \<select> id.
  * @returns void
  * @author c0rb0c4l
  */
-function hideOptionsfromTargetSelect(selectId) {
-  let targetSelect = document.getElementById(selectId.toString());
+function deleteOptionsFromTargetSelect(elementId) {
+  let targetSelect = document.getElementById(elementId.toString());
+  if (targetSelect != null) {
+    while (targetSelect.lastChild) {
+      if (targetSelect.lastChild.value != "")
+        targetSelect.lastChild.remove();
+    }
+  }
+}
+/**
+ * @description Function that hides the options from target \<select> element (except the placeholder).
+ * @param {string} elementId The \<select> id.
+ * @returns void
+ * @author c0rb0c4l
+ */
+function hideOptionsfromTargetSelect(elementId) {
+  let targetSelect = document.getElementById(elementId.toString());
   if (targetSelect != null) {
     for (let i = targetSelect.options.length; i > 1; i--) {
       if (targetSelect.options[i - 1].value != "")
@@ -85,13 +79,13 @@ function hideOptionsfromTargetSelect(selectId) {
   }
 }
 /**
- * @description Function that restores the hidden options from target select tag.
- * @param {string} selectId The select tag ID
+ * @description Function that restores the hidden options from target \<select> element (except the placeholder).
+ * @param {string} elementId The \<select> id.
  * @returns void
  * @author c0rb0c4l
  */
-function revealOptionsfromTargetSelect(selectId) {
-  let targetSelect = document.getElementById(selectId.toString());
+function revealOptionsfromTargetSelect(elementId) {
+  let targetSelect = document.getElementById(elementId.toString());
   if (targetSelect != null) {
     for (let i = targetSelect.options.length; i > 1; i--) {
       targetSelect.options[i - 1].style.display = 'block';
@@ -99,46 +93,47 @@ function revealOptionsfromTargetSelect(selectId) {
   }
 }
 /**
- * @description Creates an overlay effect on the zone wrapped around a \<div>.
- * Use with removeOverlay();
- * @param {string} divId The \<div id=" ">
- * @param {string} overlayColor The color css property (i.e. "black", "purple"... "white" by default)
- * @param  {string|number} overlayOpacity The css opacity property value ("0.6" by default);
+ * @description Creates an overlay effect on the zone wrapped inside an \<element>.\
+ * Use with removeOverlay().
+ * @param {string} elementId The \<element> id.
+ * @param {string} overlayColor The color css property (i.e. "black", "purple"... "white" by default).
+ * @param  {string|number} overlayOpacity The css opacity property value ("0.6" by default).
  * @returns void
  * @author c0rb0c4l
  */
-function createOverlayOnId(divId, overlayColor = "white", overlayOpacity = '0.6') {
-  let targetDiv = document.getElementById(divId.toString());
+function createOverlayOnId(elementId, overlayColor = "white", overlayOpacity = '0.6') {
+  let targetDiv = document.getElementById(elementId.toString());
   targetDiv.style.position = 'relative';
   const overlayDiv = document.createElement('div');
-  const overlayId = 'js-' + divId.toString() + '-overlay-zone';
+  const overlayId = 'js-' + elementId.toString() + '-overlay-zone';
   overlayDiv.style.width = '100%';
   overlayDiv.style.height = '100%';
   overlayDiv.style.position = 'absolute';
+  overlayDiv.style.zIndex = '100';
   overlayDiv.style.opacity = overlayOpacity.toString();
   overlayDiv.style.backgroundColor = overlayColor.toString();
   overlayDiv.setAttribute('id', overlayId);
   targetDiv.insertAdjacentElement('afterbegin', overlayDiv);
 }
 /**
- * @description Removes the previously created overlay on the zone. 
- * Use with createOverlay();.
- * @param {string} divId The \<div id=" ">
+ * @description Removes the previously created overlay on the <element>. 
+ * Use with createOverlay().
+ * @param {string} elementId The \<element> id.
  * @returns void
  * @author c0rb0c4l
  */
-function removeOverlayFromId(divId) {
-  const overlayId = 'js-' + divId.toString() + '-overlay-zone';
+function removeOverlayFromId(elementId) {
+  const overlayId = 'js-' + elementId.toString() + '-overlay-zone';
   if (document.getElementById(overlayId) != "undefined" && document.getElementById(overlayId) != null) {
     document.getElementById(overlayId).remove();
   }
 }
 /**
- * @description Creates an overlay effect on the zone wrapped around an element.
- * Use with removeOverlay();
- * @param {HTMLElement} element The HTML element on which you want the overlay to be applied on
- * @param {string} overlayColor The color css property (i.e. "black", "purple"... "white" by default)
- * @param  {string|number} overlayOpacity The css opacity property value ("0.6" by default);
+ * @description Creates an overlay effect on the zone wrapped inside an \<element>.
+ * Use with removeOverlay().
+ * @param {HTMLElement} element The HTML \<element>.
+ * @param {string} overlayColor The color css property (i.e. "black", "purple"... "white" by default).
+ * @param  {string|number} overlayOpacity The css opacity property value ("0.6" by default).
  * @returns void
  * @author c0rb0c4l
  */
@@ -156,9 +151,9 @@ function createOverlayOnElement(element, overlayColor = "white", overlayOpacity 
   element.insertAdjacentElement('afterbegin', overlayDiv);
 }
 /**
- * @description Removes the previously created overlay on the zone. 
- * Use with createOverlay();.
- * @param {HTMLElement} element The HTML element on which you want the overlay to be removed from
+ * @description Removes the previously created overlay on the \<element>. 
+ * Use with createOverlay().
+ * @param {HTMLElement} element The HTML \<element>.
  * @returns void
  * @author c0rb0c4l
  */
@@ -170,7 +165,7 @@ function removeOverlayFromElement(element) {
 }
 /**
  * @description Function that searches for all the checkboxes in the DOM and sets them to unchecked.
- * You need to create an event listener after which this function will be fired
+ * You can create an event listener for this function to be fired.
  * @returns void
  * @author c0rb0c4l
  */
@@ -184,30 +179,30 @@ function uncheckAllCheckboxes() {
 }
 /**
  * @description Function that search for all the other checkboxes that the desired one in the DOM and sets them to unchecked.
- * You need to create an event listener after which this function will be fired
- * @param {string} inputId The checkbox you don't want unchecked
+ * You can create an event listener for this function to be fired.
+ * @param {string} elementId The \<input> id you don't want unchecked.
  * @returns void
  * @author c0rb0c4l
  */
-function uncheckAllCheckboxesExcept(inputId) {
+function uncheckAllCheckboxesExcept(elementId) {
   let inputs = document.getElementsByTagName('input');
   for (const input of inputs) {
-    if (input.id != inputId.toString() && input.type == 'checkbox') {
+    if (input.id != elementId.toString() && input.type == 'checkbox') {
       input.checked = false;
     }
   }
 }
 /**
- * @description Will set to "inactive" all the remaining unchecked inputs from a desired group.
+ * @description Will set to "inactive" all the remaining unchecked inputs from a desired within an \<element>.
  * It adds an event listener to all the checkbox in the targeted element, count how many are checked each time
  * one is checked and will disable all the remaining checkboxes that are unchecked when a certain amount is reached.
- * @param {string} divId The \<div id=" ">
- * @param {string|number} max Included; The highest desired amount of checked checkboxes
+ * @param {string} elementId The \<element> id.
+ * @param {string|number} max Included; The highest desired amount of checked checkboxes.
  * @returns void
  * @author c0rb0c4l
  */
-function enableToggleRemainingCheckboxesInactive(divId, max) {
-  const inputGroup = document.getElementById(divId);
+function enableToggleRemainingCheckboxesInactive(elementId, max) {
+  const inputGroup = document.getElementById(elementId);
   const inputs = inputGroup.querySelectorAll("input[type='checkbox']");
   let count = 0;
   for (const child of inputs) {
@@ -232,9 +227,9 @@ function enableToggleRemainingCheckboxesInactive(divId, max) {
   }
 }
 /**
- * @description Will outline two desired inputs fields if their content are strictly different
- * @param {string} firstInputId The first input id
- * @param {string} secondInputId The second input id
+ * @description Will outline two desired inputs fields if their content are strictly different.
+ * @param {string} firstInputId The first \<input> id.
+ * @param {string} secondInputId The second \<input> id.
  * @returns void
  * @author c0rb0c4l
  */
@@ -252,10 +247,10 @@ function enableOutlineIfFieldsAreDifferent(firstInputId, secondInputId) {
 /**
  * @description Will callback a function after a certain delay when a specified event is triggered on a specific element.
  * The timed callback will be reinitialised each time the event is triggered.
- * @param {string} elementId The element on which the event listener will be attached to.
- * @param {string} eventNature The event nature (click, keyup...)
- * @param {function} callback The function to callback
- * @param {number} delay The time after which the function will be called
+ * @param {string} elementId The \<element> id on which the event listener will be attached to.
+ * @param {string} eventNature The event nature (click, keyup...).
+ * @param {function} callback The function to callback.
+ * @param {number} delay The time after which the function will be called.
  * @returns void
  * @author c0rb0c4l
  */
@@ -293,7 +288,10 @@ function enableTooltipOnClick(className) {
     });
   }
   document.addEventListener('click', function (e) {
-    if (!(e.target.classList.contains(className)) && !(e.target.classList.contains(className + '-container')) && !(e.target.parentElement.classList.contains(className + '-container')) && !(e.target.parentElement.classList.contains(className))) {
+    if (!(e.target.classList.contains(className))
+      && !(e.target.classList.contains(className + '-container'))
+      && !(e.target.parentElement.classList.contains(className + '-container'))
+      && !(e.target.parentElement.classList.contains(className))) {
       closeAllTooltips();
     }
   });
@@ -304,53 +302,3 @@ function enableTooltipOnClick(className) {
     }
   }
 }
-
-
-
-/*
- timer pattern / delay function
-
-  let timer = null;
-  let delay = 500;
-  *on event* {
-    clearTimeout(timer);
-    timer = setTimeout(timedfunction(), delay);
- }
-*/
-
-
-
-/*
-stocker fonction dans une variable (surtout si celle-ci est paramétrée)
-et appeler la fonction par le nom de la variable
-deux façons de faire
-
-// this
-
-let test = setRed;
-function setRed() {
-  let elem = document.getElementById('check3');
-  elem.style.display = 'none';
-}
-document.getElementById('check3').addEventListener("click", test);
-
-
-
-//or this
-
-let test2 = function () {
-  let elem = document.getElementById('check2');
-  elem.style.display = 'none';
-}
-document.getElementById('check2').addEventListener("click", test2);
-*/
-
-/* 
-
-$('.totoo').click()
-
-
-$(document).click('.toto', jfdskljdflsd)
-
-
-foreach((array)$array as $row)   */
