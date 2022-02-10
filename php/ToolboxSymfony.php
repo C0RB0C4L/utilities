@@ -2,7 +2,7 @@
 
 /**
  * ==================================================================\
- * Requires smalot pdfparser ($ sudo composer req smalot\pdfparser).\
+ * /!\ Requires smalot pdfparser ($ sudo composer req smalot\pdfparser).\
  * ==================================================================\
  * Searches for a string through .pdf files in the specified directory.\
  * @param string $directory 
@@ -20,7 +20,7 @@ function searchStringInPdf($directory, $needle)
   foreach ($files as $file) {
     $currentPdf = $pfdParser->parseFile($file);
     $currentPdfString = $currentPdf->getText();
-    $currentPdfString = str_replace(['\n', '\r', '\t', '\b', '\f', '\v', " "], "", $currentPdfString);
+    $currentPdfString = str_replace(["\n", "\r", "\t", "\b", "\f", "\v", " "], "", $currentPdfString);
     $needlePosition = strpos($currentPdfString, $needle);
     if ($needlePosition !== false) {
       $result[] = $file->getFilename();
