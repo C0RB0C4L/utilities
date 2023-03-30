@@ -1,0 +1,140 @@
+/*****************************************************************
+CUSTOM TOOLTIP BOX
+*****************************************************************/
+.app-tooltip-container {
+  visibility: hidden;
+  width: auto;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  margin-left: 5px;
+  position: absolute;
+  z-index: 1;
+}
+.app-tooltip-container::before {
+  content: " ";
+  position: absolute;
+  top: 50%;
+  right: 100%; /* To the left of the tooltip */
+  margin-top: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+}
+/*****************************************************************
+CUSTOM SWITCH 1 (RECTANGULAR WITH SQUARE BUTTON)
+*****************************************************************/
+.app-switch-1 {
+	position: relative;
+	display: inline-block;
+	width: 35px;
+	height: 18px;
+}
+.app-switch-1 input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.app-slider-1 {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	/* border-radius: 35px; */
+	border: 1px gray solid;
+	background-color: crimson;
+}
+input:checked + .app-slider-1 { 
+	background-color: green;
+}
+input:disabled + .app-slider-1  {
+	background-color: grey;
+}
+.app-slider-1:before {
+	position: absolute;
+	content: "";
+	height: 12px;
+	width: 12px;
+	left: 2px;
+	bottom: 2px;
+	background-color: whitesmoke;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	/* border-radius: 50%; */
+}
+input:disabled + .app-slider-1::before {
+	background-color: lightgray;
+}
+input:checked + .app-slider-1:before {
+	-webkit-transform: translateX(17px);
+	-ms-transform: translateX(17px);
+	transform: translateX(17px);
+}
+input:focus + .app-slider-1 {
+	box-shadow: 0 0 1px black;
+}
+/*****************************************************************
+CUSTOM SWITCH 2 (OVAL WITH CIRCLE BUTTON)
+*****************************************************************/
+.app-switch-2 {
+	position: relative;
+	display: inline-block;
+	width: 35px;
+	height: 20px;
+}
+.app-switch-2 input {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+.app-slider-2 {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	border-radius: 35px;
+	border: 1px gray solid;
+	background-color: crimson;
+}
+input:disabled + .app-slider-2 {
+	background-color: grey;
+}
+input:checked + .app-slider-2 { 
+  background-color: green;
+}
+.app-slider-2:before {
+	position: absolute;
+	content: "";
+	height: 11px;
+	width: 11px;
+	left: 3px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.1s;
+	transition: 0.2s;
+	border-radius: 50%;
+}
+input:disabled + .app-slider-2::before {
+	background-color: lightgray;
+}
+input:checked + .app-slider-2:before {
+	-webkit-transform: translateX(16px);
+	-ms-transform: translateX(16px);
+	transform: translateX(16px);
+}
+input:focus + .app-slider-2 {
+	box-shadow: 0 0 1px black;
+}
