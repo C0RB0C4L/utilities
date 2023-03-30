@@ -1,0 +1,1 @@
+A few utilities I created and still use here and there. May contain some code taken from stackoverflow.
